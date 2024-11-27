@@ -23,8 +23,9 @@ public class AuthController {
     }
 
     @PostMapping(path = "/signup")
-    public void signUp(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> signUp(@RequestBody UserDTO userDTO) {
         userService.saveUser(userDTO);
+        return ResponseEntity.ok().body("{\"resp\":\"Se ha registrado correctamente\"}");
     }
 
 }
