@@ -24,6 +24,9 @@ public class UserService {
         String encryptedPassword = encoder.encode(userDTO.getPassword());
         user.setPassword(encryptedPassword);
         user.setEmail(userDTO.getEmail());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhone(userDTO.getPhone());
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
