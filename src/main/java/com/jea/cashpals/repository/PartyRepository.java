@@ -1,9 +1,11 @@
 package com.jea.cashpals.repository;
 
-import com.jea.cashpals.entitiy.Party;
+import com.jea.cashpals.entitiy.Event;
+import com.jea.cashpals.entitiy.MierderGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PartyRepository extends JpaRepository<Party,Integer> {
+public interface GroupRepository extends JpaRepository<MierderGroup,Integer> {
 
-    Party findPartyById(Integer id);
+   // Group getGroupById(Integer id);
+    //Group findGroupById(Integer id);
 }
