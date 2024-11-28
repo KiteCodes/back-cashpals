@@ -1,4 +1,4 @@
 package com.jea.cashpals.dto;
 
-public class JA {
+public class EventGroupDTO {
 }

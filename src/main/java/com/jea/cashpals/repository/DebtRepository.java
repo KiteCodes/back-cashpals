@@ -1,4 +1,4 @@
 package com.jea.cashpals.repository;
 
-public class JA {
+public interface DebtRepository {
 }

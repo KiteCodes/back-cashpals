@@ -1,4 +1,4 @@
 package com.jea.cashpals.entitiy;
 
-public class JA {
+public class Balance {
 }

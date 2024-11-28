@@ -1,4 +1,4 @@
 package com.jea.cashpals.controller;
 
-public class JA {
+public class EventController {
 }
