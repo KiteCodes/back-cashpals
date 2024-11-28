@@ -1,10 +1,8 @@
 package com.jea.cashpals.controller;
 
-import com.jea.cashpals.dto.EventDTO;
-import com.jea.cashpals.dto.GroupDTO;
-import com.jea.cashpals.entitiy.Event;
-import com.jea.cashpals.entitiy.MierderGroup;
-import com.jea.cashpals.repository.GroupRepository;
+import com.jea.cashpals.dto.PartyDTO;
+import com.jea.cashpals.entitiy.Party;
+import com.jea.cashpals.repository.PartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,28 +10,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/group")
-public class GroupController {
+@RequestMapping("/party")
+public class PartyController {
 
     @Autowired
-    private GroupRepository groupRepository;
+    private PartyRepository partyRepository;
 
     @GetMapping
-    public List<MierderGroup> getGroups(){
-        return groupRepository.findAll();
+    public List<Party> getParties(){
+        return partyRepository.findAll();
     }
     @GetMapping(path = "/{id}")
-    public MierderGroup getGroupById(Integer id){
-        return null;// groupRepository.findGroupById(id);
+    public Party getPartyById(Integer id){
+        return partyRepository.findPartyById(id);
     }
     @PostMapping
-    private ResponseEntity<String> createGroup(@RequestBody GroupDTO group){
-        MierderGroup newGroup= new MierderGroup();
-        newGroup.setName(group.getName());
-        newGroup.setDescription(group.getDescription());
+    private ResponseEntity<String> createParty(@RequestBody PartyDTO party){
+        Party newParty = new Party();
+        newParty.setName(party.getName());
+        newParty.setDescription(party.getDescription());
        //TODO:terminar esto cuando este linkeado a user
         // newGroup.set(group.getOwnerId());
-        return ResponseEntity.ok("Group created");
+        return ResponseEntity.ok("Party created");
     }
     //TODO: CREATE GROUP
     //TODO: FIND GROUPS BY USER (ID)
