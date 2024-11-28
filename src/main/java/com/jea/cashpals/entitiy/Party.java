@@ -8,15 +8,15 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "party")
-public class Party {
+//@Table(name = "group")
+public class MierderGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "party")
+    @OneToMany(mappedBy = "group")
     private List<Event> eventList;
 
     /*

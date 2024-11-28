@@ -3,7 +3,7 @@ package com.jea.cashpals.dto;
 import lombok.Data;
 
 @Data
-public class PartyDTO {
+public class GroupDTO {
     private String name;
     private String description;
     private int ownerId;
