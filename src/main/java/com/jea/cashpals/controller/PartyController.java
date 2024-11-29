@@ -24,13 +24,11 @@ public class PartyController {
 
     @GetMapping
     public List<Party> getParties(){
-        List<Party> parties=partyRepository.findAll();
-        return parties;
+        return partyRepository.findAll();
     }
     @GetMapping(path = "/{id}")
     public Party getPartyById(Integer id){
-        Party party = partyRepository.findPartyById(id);
-        return party;
+        return partyRepository.findPartyById(id);
     }
     @PostMapping
     public ResponseEntity<String> createParty(@RequestBody PartyDTO partyDTO) {

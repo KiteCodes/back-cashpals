@@ -22,13 +22,11 @@ public class EventController {
 
     @GetMapping
     public List<Event> getEvents(){
-        List<Event> events=eventRepository.findAll();
-        return events;
+        return eventRepository.findAll();
     }
     @GetMapping(path = "/{id}")
     public Event getEventById(Integer id){
-        Event event = eventRepository.findEventById(id);
-        return event;
+        return eventRepository.findEventById(id);
     }
     @PostMapping
     public ResponseEntity<String> createEvent(@RequestBody EventDTO eventDTO) {
