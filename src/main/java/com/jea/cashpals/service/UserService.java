@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder encoder;
 
-    public User saveUser( UserDTO userDTO) {
+    public void saveUser( UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         String encryptedPassword = encoder.encode(userDTO.getPassword());
@@ -31,6 +31,6 @@ public class UserService {
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 }
