@@ -26,8 +26,8 @@ public class PartyController {
         return partyRepository.findAll();
     }
 
-    @GetMapping(path = "/{id}")
-    public Party getGroupByOwnerId (@PathVariable Integer ownerId) {
-        return partyRepository.findPartyByUserId(ownerId);
-    }
+//    @GetMapping(path = "/{id}")
+//    public Party getGroupByOwnerId (@PathVariable Integer ownerId) {
+//        return partyRepository.findPartyByUserId(ownerId);
+//    }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PartyRepository extends JpaRepository<Party,Integer> {
     Party findPartyById(Integer id);
-    Party findPartyByUserId(Integer userId);
+    //Party findPartyByUserId(Integer userId);
 }
