@@ -24,11 +24,11 @@ public class EventDTO {
     this.description = description;
   }
 
-  public int getGroupId() {
+  public int getPartyId() {
     return partyId;
   }
 
-  public void setGroupId(int groupId) {
+  public void setPartyId(int groupId) {
     this.partyId = groupId;
   }
 }
