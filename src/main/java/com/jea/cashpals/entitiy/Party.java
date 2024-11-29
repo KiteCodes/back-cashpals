@@ -5,9 +5,8 @@ import lombok.Data;
 
 import java.util.List;
 
-
-@Entity
 @Data
+@Entity
 @Table(name = "party")
 public class Party {
     @Id
@@ -15,6 +14,11 @@ public class Party {
     private int id;
     private String name;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "owner")
+    private User owner;
+
 
     @OneToMany(mappedBy = "party")
     private List<Event> eventList;
