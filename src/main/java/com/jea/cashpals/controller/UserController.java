@@ -28,10 +28,14 @@ public class UserController {
     public User getUserById(Integer id){
         return userRepository.findUserById(id);
     }
-    @PostMapping(path = "/")
+    @PostMapping(path = "/contacts/")
     public void saveContact(@RequestBody Integer id, List<Integer> contactIDs){
         User user = userRepository.findUserById(id);
         user.setContactList(userService.getUserList(id, contactIDs));
     }
-
+    @GetMapping(path = "/contacts")
+    public List<User> getContacts(@RequestBody Integer id){
+        User user = userRepository.findUserById(id);
+        return user.getContactList();
+    }
 }
