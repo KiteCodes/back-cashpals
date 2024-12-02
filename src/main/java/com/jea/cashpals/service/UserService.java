@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Service
 public class UserService {
@@ -32,5 +35,20 @@ public class UserService {
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
         userRepository.save(user);
+    }
+    public List<User> getUserList(Integer id, List<Integer> contactIDs){
+        List<User> userList = new ArrayList<>();
+        User user = userRepository.findUserById(id);
+
+        contactIDs.forEach(currentId -> {
+            userList.add(userRepository.findUserById(currentId));
+        });
+
+        userList.forEach(cUser -> {
+            if (user.getContactList().contains(cUser))
+                userList.remove(cUser);
+        });
+
+        return userList;
     }
 }

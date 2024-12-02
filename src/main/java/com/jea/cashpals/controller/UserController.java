@@ -4,17 +4,19 @@ import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.repository.UserRepository;
 
+import com.jea.cashpals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
     @Autowired
     UserRepository userRepository;
 
@@ -26,4 +28,10 @@ public class UserController {
     public User getUserById(Integer id){
         return userRepository.findUserById(id);
     }
+    @PostMapping(path = "/")
+    public void saveContact(@RequestBody Integer id, List<Integer> contactIDs){
+        User user = userRepository.findUserById(id);
+        user.setContactList(userService.getUserList(id, contactIDs));
+    }
+
 }

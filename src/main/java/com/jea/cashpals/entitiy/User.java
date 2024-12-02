@@ -39,6 +39,22 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner")
     private List<Party> partyList;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "user_contacts",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "contact_id")
+    )
+    private List<User> contactList;
+
+    public List<User> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<User> contactList) {
+        this.contactList = contactList;
+    }
 
     private boolean accountNonExpired;
     private boolean accountNonLocked;
