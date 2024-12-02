@@ -34,6 +34,7 @@ public class User implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String email;
+
     @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<Party> partyList;
