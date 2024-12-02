@@ -8,13 +8,17 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "debt")
-public class Debt {
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
     private float value;
+    private User debtor;
+
+    @OneToMany
+    private List<User> indebted;
 
     @ManyToOne
     private Balance balance;
