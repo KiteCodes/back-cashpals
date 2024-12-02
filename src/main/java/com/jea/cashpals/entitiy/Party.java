@@ -1,5 +1,6 @@
 package com.jea.cashpals.entitiy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,17 +17,14 @@ public class Party {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "owner")
     private User owner;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "party")
     private List<Event> eventList;
 
-    /*
     @ManyToMany
     private List<User> userList;
-     */
 
     public int getId() {
         return id;
@@ -52,6 +50,14 @@ public class Party {
         this.description = description;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public List<Event> getEventList() {
         return eventList;
     }
@@ -60,5 +66,11 @@ public class Party {
         this.eventList = eventList;
     }
 
+    public List<User> getUserList() {
+        return userList;
+    }
 
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 }

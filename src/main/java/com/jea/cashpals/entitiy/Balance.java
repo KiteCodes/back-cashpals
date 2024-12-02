@@ -17,7 +17,7 @@ public class Balance {
     @OneToOne
     private Event event;
     @OneToMany(mappedBy = "balance")
-    private List<Debt> debtList;
+    private List<Transaction> transactiontList;
 
     public int getId() {
         return id;
@@ -43,11 +43,10 @@ public class Balance {
         this.event = event;
     }
 
-    public List<Debt> getDebtList() {
-        return debtList;
+    public List<Transaction> getTransactionList() {
+        return transactiontList;
     }
-
-    public void setDebtList(List<Debt> debtList) {
-        this.debtList = debtList;
+    public void setTransactionList(List<Transaction> transactiontList) {
+        this.transactiontList = transactiontList;
     }
 }
