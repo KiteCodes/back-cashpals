@@ -24,6 +24,7 @@ public class PartyController {
 
     @Autowired
     PartyRepository partyRepository;
+
     @Autowired
     UserRepository userRepository;
 

@@ -20,13 +20,13 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String lastName;
 
     @Column(unique = true, nullable = false)
@@ -38,6 +38,7 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<Party> partyList;
+
 
     private boolean accountNonExpired;
     private boolean accountNonLocked;

@@ -30,5 +30,6 @@ public class PartyService {
         Party party = partyRepository.save(partyMapper.fromPartyDTO(partyDTO,user));
 
         return partyMapper.fromParty(party);
+
     }
 }
