@@ -6,9 +6,8 @@ import lombok.Data;
 
 import java.util.List;
 
-
-@Entity
 @Data
+@Entity
 @Table(name = "party")
 public class Party {
     @Id
