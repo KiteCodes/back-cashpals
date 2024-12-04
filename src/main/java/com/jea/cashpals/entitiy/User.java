@@ -1,6 +1,7 @@
 package com.jea.cashpals.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jea.cashpals.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,8 +49,18 @@ public class User implements UserDetails {
     )
     private List<User> contactList;
 
-    public List<User> getContactList() {
-        return contactList;
+    public List<UserDTO> getContactList() {
+        List<UserDTO> contactDTOList = new ArrayList<>();
+        this.contactList.forEach(contact -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(contact.getUsername());
+            userDTO.setFirstName(contact.getFirstName());
+            userDTO.setLastName(contact.getLastName());
+            userDTO.setEmail(contact.getEmail());
+            userDTO.setPhone(contact.getPhone());
+            contactDTOList.add(userDTO);
+        });
+        return contactDTOList;
     }
 
     public void setContactList(List<User> contactList) {

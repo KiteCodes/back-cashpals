@@ -1,5 +1,7 @@
 package com.jea.cashpals.controller;
 
+import com.jea.cashpals.dto.ContactDTO;
+import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.repository.UserRepository;
@@ -29,12 +31,17 @@ public class UserController {
         return userRepository.findUserById(id);
     }
     @PostMapping(path = "/contacts/")
-    public void saveContact(@RequestBody Integer id, List<Integer> contactIDs){
-        User user = userRepository.findUserById(id);
-        user.setContactList(userService.getUserList(id, contactIDs));
+    public void saveContact(@RequestBody ContactDTO contactDTO){
+        User user = userRepository.findUserById(contactDTO.getId());
+        Integer id = contactDTO.getId();
+        List<Integer> ids = contactDTO.getContactIDs();
+        List<User> userList = userService.getUserList(id, ids);
+        user.setContactList(userList);
+        userRepository.save(user);
     }
+
     @GetMapping(path = "/contacts")
-    public List<User> getContacts(@RequestBody Integer id){
+    public List<UserDTO> getContacts(@RequestParam("id") Integer id){
         User user = userRepository.findUserById(id);
         return user.getContactList();
     }

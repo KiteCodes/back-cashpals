@@ -36,6 +36,8 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }
+
+
     public List<User> getUserList(Integer id, List<Integer> contactIDs){
         List<User> userList = new ArrayList<>();
         User user = userRepository.findUserById(id);
