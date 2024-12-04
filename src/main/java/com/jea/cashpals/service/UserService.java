@@ -3,7 +3,6 @@ package com.jea.cashpals.service;
 import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.repository.UserRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Service
 public class UserService {
 

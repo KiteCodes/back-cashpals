@@ -1,9 +1,7 @@
 package com.jea.cashpals.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jea.cashpals.dto.UserDTO;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Data
 @Entity
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -55,7 +53,6 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "indebted")
     private List<Transaction> indebtedTransactions;
-
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
