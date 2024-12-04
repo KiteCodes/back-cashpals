@@ -49,24 +49,6 @@ public class User implements UserDetails {
     )
     private List<User> contactList;
 
-    public List<UserDTO> getContactList() {
-        List<UserDTO> contactDTOList = new ArrayList<>();
-        this.contactList.forEach(contact -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(contact.getUsername());
-            userDTO.setFirstName(contact.getFirstName());
-            userDTO.setLastName(contact.getLastName());
-            userDTO.setEmail(contact.getEmail());
-            userDTO.setPhone(contact.getPhone());
-            contactDTOList.add(userDTO);
-        });
-        return contactDTOList;
-    }
-
-    public void setContactList(List<User> contactList) {
-        this.contactList = contactList;
-    }
-
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -172,4 +154,14 @@ public class User implements UserDetails {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+
+    public List<User> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<User> contactList) {
+        this.contactList = contactList;
+    }
+
 }

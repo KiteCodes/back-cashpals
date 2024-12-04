@@ -33,9 +33,8 @@ public class UserController {
     @PostMapping(path = "/contacts/")
     public void saveContact(@RequestBody ContactDTO contactDTO){
         User user = userRepository.findUserById(contactDTO.getId());
-        Integer id = contactDTO.getId();
         List<Integer> ids = contactDTO.getContactIDs();
-        List<User> userList = userService.getUserList(id, ids);
+        List<User> userList = userService.getUserList(user.getId(), ids);
         user.setContactList(userList);
         userRepository.save(user);
     }
@@ -43,6 +42,6 @@ public class UserController {
     @GetMapping(path = "/contacts")
     public List<UserDTO> getContacts(@RequestParam("id") Integer id){
         User user = userRepository.findUserById(id);
-        return user.getContactList();
+        return userService.getContactList(user.getContactList());
     }
 }

@@ -37,20 +37,31 @@ public class UserService {
         userRepository.save(user);
     }
 
-
     public List<User> getUserList(Integer id, List<Integer> contactIDs){
         List<User> userList = new ArrayList<>();
         User user = userRepository.findUserById(id);
-
+        List<User> userContactList = user.getContactList();
         contactIDs.forEach(currentId -> {
             userList.add(userRepository.findUserById(currentId));
         });
 
-        userList.forEach(cUser -> {
-            if (user.getContactList().contains(cUser))
-                userList.remove(cUser);
-        });
+        userList.removeAll(userContactList);
+        userContactList.addAll(userList);
 
-        return userList;
+        return userContactList;
+    }
+
+    public List<UserDTO> getContactList(List<User> contactList) {
+        List<UserDTO> contactDTOList = new ArrayList<>();
+        contactList.forEach(contact -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(contact.getUsername());
+            userDTO.setFirstName(contact.getFirstName());
+            userDTO.setLastName(contact.getLastName());
+            userDTO.setEmail(contact.getEmail());
+            userDTO.setPhone(contact.getPhone());
+            contactDTOList.add(userDTO);
+        });
+        return contactDTOList;
     }
 }
