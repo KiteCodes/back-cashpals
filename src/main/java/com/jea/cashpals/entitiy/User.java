@@ -48,6 +48,13 @@ public class User implements UserDetails {
         inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
     private List<User> contactList;
+  
+    @OneToMany(mappedBy = "debtor")
+    private List<Transaction> debtorTransactions;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "indebted")
+    private List<Transaction> indebtedTransactions;
 
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -155,7 +162,6 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-
     public List<User> getContactList() {
         return contactList;
     }
@@ -163,5 +169,21 @@ public class User implements UserDetails {
     public void setContactList(List<User> contactList) {
         this.contactList = contactList;
     }
+  
+    public List<Transaction> getIndebtedTransactions() {
+        return indebtedTransactions;
+    }
 
+    public void setIndebtedTransactions(List<Transaction> indebtedTransactions) {
+        this.indebtedTransactions = indebtedTransactions;
+    }
+
+    public List<Transaction> getDebtorTransactions() {
+        return debtorTransactions;
+    }
+
+    public void setDebtorTransactions(List<Transaction> debtorTransactions) {
+        this.debtorTransactions = debtorTransactions;
+    }
 }
+

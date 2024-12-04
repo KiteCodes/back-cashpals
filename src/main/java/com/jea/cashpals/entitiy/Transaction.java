@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "debt")
+@Table(name = "transaction")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,12 @@ public class Transaction {
     private String name;
     private String description;
     private float value;
+
+    @ManyToOne
     private User debtor;
 
-    @OneToMany
-    private List<User> indebted;
+    @ManyToOne
+    private User indebted;
 
     @ManyToOne
     private Balance balance;
@@ -62,4 +64,21 @@ public class Transaction {
     public void setBalance(Balance balance) {
         this.balance = balance;
     }
+
+    public User getDebtor() {
+        return debtor;
+    }
+
+    public void setDebtor(User debtor) {
+        this.debtor = debtor;
+    }
+
+    public User getIndebted() {
+        return indebted;
+    }
+
+    public void setIndebted(User indebted) {
+        this.indebted = indebted;
+    }
+
 }
