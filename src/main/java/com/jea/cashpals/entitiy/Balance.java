@@ -1,5 +1,6 @@
 package com.jea.cashpals.entitiy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,8 @@ public class Balance {
 
     @OneToOne
     private Event event;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "balance")
     private List<Transaction> transactiontList;
 
@@ -47,6 +50,14 @@ public class Balance {
         return transactiontList;
     }
     public void setTransactionList(List<Transaction> transactiontList) {
+        this.transactiontList = transactiontList;
+    }
+
+    public List<Transaction> getTransactiontList() {
+        return transactiontList;
+    }
+
+    public void setTransactiontList(List<Transaction> transactiontList) {
         this.transactiontList = transactiontList;
     }
 }
