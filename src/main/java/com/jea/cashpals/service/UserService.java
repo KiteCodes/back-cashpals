@@ -33,4 +33,22 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }
+    public User updateUser(Integer id, UserDTO userRequest) {
+        User user = userRepository.findUserById(id);
+
+        user.setUsername(userRequest.getUsername());
+        user.setPassword(userRequest.getPassword());
+        user.setUsername(userRequest.getFirstName());
+        user.setPhone(userRequest.getPhone());
+        user.setFirstName(userRequest.getFirstName());
+        user.setLastName(userRequest.getLastName());
+        user.setEmail(userRequest.getEmail());
+
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) {
+        User user = userRepository.findUserById(id);
+        userRepository.delete(user);
+    }
 }

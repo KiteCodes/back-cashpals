@@ -1,13 +1,15 @@
 package com.jea.cashpals.controller;
 
+import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.repository.UserRepository;
 
+import com.jea.cashpals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +19,8 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping
     public List<User> getUsers(){
@@ -25,5 +29,15 @@ public class UserController {
     @GetMapping(path = "/{id}")
     public User getUserById(Integer id){
         return userRepository.findUserById(id);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody UserDTO userRequest) {
+        User user = userService.updateUser(id, userRequest);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
