@@ -13,6 +13,6 @@ FROM openjdk:17-alpine
 # Set the working directory in the container
 WORKDIR /app
 # Copy the built JAR file from the previous stage to the container
-COPY --from=build /app/target/cashpals-0.0.1-SNAPSHOT.war app.war
+COPY --from=build /app/target/cashpals-0.0.1-SNAPSHOT.jar app.jar
 # Set the command to run the application
-CMD ["java", "-jar", "app.war"]
+CMD ["java", "-jar", "app.jar"]
