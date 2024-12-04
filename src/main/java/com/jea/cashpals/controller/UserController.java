@@ -31,8 +31,8 @@ public class UserController {
         return userRepository.findUserById(id);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody UserDTO userRequest) {
-        User user = userService.updateUser(id, userRequest);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userRequest) {
+        UserDTO user = userService.updateUser(id, userRequest);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
     @DeleteMapping("/{id}")

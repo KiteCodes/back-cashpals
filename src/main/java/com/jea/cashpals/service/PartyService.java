@@ -1,6 +1,7 @@
 package com.jea.cashpals.service;
 
 import com.jea.cashpals.dto.PartyDTO;
+import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.PartyMapper;
@@ -21,15 +22,19 @@ public class PartyService {
 
     public PartyDTO createParty( PartyDTO partyDTO){
 
-        //        Party party = new Party();
-//        party.setDescription(partyDTO.getDescription());
-//        party.setName(partyDTO.getName());
-//        party.setOwner(userRepository.findUserById(partyDTO.getOwnerId()));
-
         User user = userRepository.findUserById(partyDTO.getOwnerId());
         Party party = partyRepository.save(partyMapper.fromPartyDTO(partyDTO,user));
 
         return partyMapper.fromParty(party);
 
+    }
+    public PartyDTO updateParty(Integer id, PartyDTO partyRequest) {
+        Party party = partyRepository.findPartyById(id);
+
+        party.setOwner(userRepository.findUserById(partyRequest.getOwnerId()));
+        party.setName(partyRequest.getName());
+        party.setDescription(partyRequest.getDescription());
+
+        return partyMapper.fromParty(partyRepository.save(party));
     }
 }

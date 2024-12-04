@@ -2,6 +2,7 @@ package com.jea.cashpals.service;
 
 import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.User;
+import com.jea.cashpals.mapper.UserMapper;
 import com.jea.cashpals.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public void saveUser( UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
@@ -33,7 +37,7 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }
-    public User updateUser(Integer id, UserDTO userRequest) {
+    public UserDTO updateUser(Integer id, UserDTO userRequest) {
         User user = userRepository.findUserById(id);
 
         user.setUsername(userRequest.getUsername());
@@ -44,7 +48,7 @@ public class UserService {
         user.setLastName(userRequest.getLastName());
         user.setEmail(userRequest.getEmail());
 
-        return userRepository.save(user);
+        return userMapper.fromUser(userRepository.save(user));
     }
 
     public void deleteUser(Integer id) {

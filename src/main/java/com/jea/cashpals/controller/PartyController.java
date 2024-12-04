@@ -45,5 +45,10 @@ public class PartyController {
         return new ResponseEntity<>(partyService.createParty(partyDTO),HttpStatus.CREATED);
     }
 
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<PartyDTO> updateParty(@PathVariable Integer id, @RequestBody PartyDTO partyDTO) {
+        return new ResponseEntity<>(partyService.updateParty(id, partyDTO),HttpStatus.OK);
+    }
+
 
 }
