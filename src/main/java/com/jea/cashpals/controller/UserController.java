@@ -18,17 +18,15 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
-    @Autowired
     UserService userService;
 
     @GetMapping
-    public List<User> getUsers(){
-        return userRepository.findAll();
+    public List<UserDTO> getUserList(){
+        return userService.getAllUsers();
     }
     @GetMapping(path = "/{id}")
-    public User getUserById(Integer id){
-        return userRepository.findUserById(id);
+    public UserDTO getUserById(@PathVariable Integer id){
+        return userService.findUserById(id);
     }
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userRequest) {
@@ -36,8 +34,9 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }

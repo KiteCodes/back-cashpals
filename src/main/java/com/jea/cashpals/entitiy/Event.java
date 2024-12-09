@@ -15,8 +15,6 @@ public class Event {
 
     @ManyToOne
     private Party party;
-//    @OneToOne
-//    private Balance balance;
 
     public int getId() {
         return id;

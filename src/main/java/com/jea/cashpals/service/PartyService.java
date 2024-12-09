@@ -10,6 +10,8 @@ import com.jea.cashpals.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PartyService {
     @Autowired
@@ -36,5 +38,17 @@ public class PartyService {
         party.setDescription(partyRequest.getDescription());
 
         return partyMapper.fromParty(partyRepository.save(party));
+    }
+    public void deleteParty(Integer id) {
+        partyRepository.delete(partyRepository.findPartyById(id));
+    }
+    public List<PartyDTO> getParties(){
+        List<Party> parties = partyRepository.findAll();
+        List<PartyDTO> partyDTOs = parties.stream().map(partyMapper::fromParty).toList();
+
+        return partyDTOs;
+    }
+    public PartyDTO getPartyById(Integer id){
+        return partyMapper.fromParty(partyRepository.findPartyById(id));
     }
 }

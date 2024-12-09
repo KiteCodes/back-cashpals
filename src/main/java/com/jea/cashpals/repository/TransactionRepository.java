@@ -11,4 +11,5 @@ public interface TransactionRepository extends JpaRepository<Transaction,Integer
 
     Transaction findEventById(Integer id);
 
+    Transaction findTransactionById(Integer id);
 }

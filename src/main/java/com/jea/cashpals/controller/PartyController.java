@@ -23,22 +23,15 @@ import java.util.List;
 public class PartyController {
 
     @Autowired
-    PartyRepository partyRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     PartyService partyService;
-    @Autowired
-    PartyMapper partyMapper;
+
     @GetMapping
-    public List<Party> getParties(){
-        return partyRepository.findAll();
+    public List<PartyDTO> getParties(){
+        return partyService.getParties();
     }
     @GetMapping(path = "/{id}")
-    public Party getPartyById(Integer id){
-        return partyRepository.findPartyById(id);
+    public PartyDTO getPartyById(@PathVariable Integer id){
+        return partyService.getPartyById(id);
     }
     @PostMapping
     public ResponseEntity<PartyDTO> createParty(@RequestBody PartyDTO partyDTO) {
@@ -49,6 +42,10 @@ public class PartyController {
     public ResponseEntity<PartyDTO> updateParty(@PathVariable Integer id, @RequestBody PartyDTO partyDTO) {
         return new ResponseEntity<>(partyService.updateParty(id, partyDTO),HttpStatus.OK);
     }
-
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteParty(@PathVariable Integer id) {
+        partyService.deleteParty(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

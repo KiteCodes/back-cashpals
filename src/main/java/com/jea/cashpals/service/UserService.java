@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Data
 @Service
 public class UserService {
@@ -36,13 +38,13 @@ public class UserService {
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
         userRepository.save(user);
+
     }
     public UserDTO updateUser(Integer id, UserDTO userRequest) {
         User user = userRepository.findUserById(id);
 
         user.setUsername(userRequest.getUsername());
         user.setPassword(userRequest.getPassword());
-        user.setUsername(userRequest.getFirstName());
         user.setPhone(userRequest.getPhone());
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
@@ -54,5 +56,13 @@ public class UserService {
     public void deleteUser(Integer id) {
         User user = userRepository.findUserById(id);
         userRepository.delete(user);
+    }
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(userMapper::fromUser).toList();
+    }
+
+    public UserDTO findUserById(Integer id) {
+        return userMapper.fromUser(userRepository.findUserById(id));
     }
 }
