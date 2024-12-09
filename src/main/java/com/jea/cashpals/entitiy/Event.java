@@ -14,8 +14,6 @@ public class Event {
 
     @ManyToOne
     private Party party;
-//    @OneToOne
-//    private Balance balance;
 
     public int getId() {
         return id;
@@ -49,11 +47,4 @@ public class Event {
         this.party = group;
     }
 
-//    public Balance getBalance() {
-//        return balance;
-//    }
-//
-//    public void setBalance(Balance balance) {
-//        this.balance = balance;
-//    }
 }
