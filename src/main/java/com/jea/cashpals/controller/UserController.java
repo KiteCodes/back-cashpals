@@ -23,6 +23,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping
     public List<UserDTO> getUserList(){
         return userService.getAllUsers();
