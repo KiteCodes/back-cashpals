@@ -48,11 +48,4 @@ public class Event {
         this.party = group;
     }
 
-//    public Balance getBalance() {
-//        return balance;
-//    }
-//
-//    public void setBalance(Balance balance) {
-//        this.balance = balance;
-//    }
 }

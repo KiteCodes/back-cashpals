@@ -19,6 +19,7 @@ public class Party {
     @ManyToOne
     private User owner;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "party")
     private List<Event> eventList;
 
