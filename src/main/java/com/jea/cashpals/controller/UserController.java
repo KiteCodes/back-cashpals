@@ -1,13 +1,16 @@
 package com.jea.cashpals.controller;
 
+
+
+import com.jea.cashpals.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.jea.cashpals.dto.ContactDTO;
 import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.repository.UserRepository;
-
-import com.jea.cashpals.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,18 +22,28 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    UserRepository userRepository;
 
     @GetMapping
-    public List<User> getUsers(){
-        return userRepository.findAll();
+    public List<UserDTO> getUserList(){
+        return userService.getAllUsers();
     }
     @GetMapping(path = "/{id}")
-    public User getUserById(Integer id){
-        return userRepository.findUserById(id);
+    public UserDTO getUserById(@PathVariable Integer id){
+        return userService.findUserById(id);
     }
-    @PostMapping(path = "/contacts/")
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer id, @RequestBody UserDTO userRequest) {
+        UserDTO user = userService.updateUser(id, userRequest);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(path = "/contacts")
     public void saveContact(@RequestBody ContactDTO contactDTO){
         User user = userRepository.findUserById(contactDTO.getId());
         List<Integer> ids = contactDTO.getContactIDs();

@@ -50,7 +50,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "debtor")
     private List<Transaction> debtorTransactions;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "indebted")
     private List<Transaction> indebtedTransactions;
     private boolean accountNonExpired;

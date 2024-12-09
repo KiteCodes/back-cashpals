@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class EventService {
     @Autowired
@@ -39,12 +37,5 @@ public class EventService {
         eventRepository.save(event);
         return eventMapper.fromEvent(event);
     }
-    public List<EventDTO> getEvents() {
-        List<Event> events = eventRepository.findAll();
-        return events.stream().map(eventMapper::fromEvent).toList();
-    }
-    public EventDTO getEventById(Integer id) {
-        Event event = eventRepository.findEventById(id);
-        return eventMapper.fromEvent(event);
-    }
+
 }
