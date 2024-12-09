@@ -2,7 +2,6 @@ package com.jea.cashpals.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Data
 @Entity
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,12 +39,19 @@ public class User implements UserDetails {
     private List<Party> partyList;
 
     @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "user_contacts",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "contact_id")
+    )
+    private List<User> contactList;
+  
     @OneToMany(mappedBy = "debtor")
     private List<Transaction> debtorTransactions;
 
     @OneToMany(mappedBy = "indebted")
     private List<Transaction> indebtedTransactions;
-
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -152,6 +158,14 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
+    public List<User> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<User> contactList) {
+        this.contactList = contactList;
+    }
+  
     public List<Transaction> getIndebtedTransactions() {
         return indebtedTransactions;
     }

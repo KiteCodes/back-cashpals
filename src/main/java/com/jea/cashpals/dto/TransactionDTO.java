@@ -1,11 +1,9 @@
 package com.jea.cashpals.dto;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
 public class TransactionDTO {
+
     private String name;
     private String description;
     private int debtorId;

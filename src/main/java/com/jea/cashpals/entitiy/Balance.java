@@ -2,14 +2,13 @@ package com.jea.cashpals.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "balance")
 public class Balance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -49,6 +48,7 @@ public class Balance {
     public List<Transaction> getTransactionList() {
         return transactiontList;
     }
+
     public void setTransactionList(List<Transaction> transactiontList) {
         this.transactiontList = transactiontList;
     }

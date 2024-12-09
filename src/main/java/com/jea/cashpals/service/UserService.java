@@ -4,14 +4,13 @@ import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.UserMapper;
 import com.jea.cashpals.repository.UserRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Service
 public class UserService {
 
@@ -64,5 +63,33 @@ public class UserService {
 
     public UserDTO findUserById(Integer id) {
         return userMapper.fromUser(userRepository.findUserById(id));
+    }
+
+    public List<User> getUserList(Integer id, List<Integer> contactIDs){
+        List<User> userList = new ArrayList<>();
+        User user = userRepository.findUserById(id);
+        List<User> userContactList = user.getContactList();
+        contactIDs.forEach(currentId -> {
+            userList.add(userRepository.findUserById(currentId));
+        });
+
+        userList.removeAll(userContactList);
+        userContactList.addAll(userList);
+
+        return userContactList;
+    }
+
+    public List<UserDTO> getContactList(List<User> contactList) {
+        List<UserDTO> contactDTOList = new ArrayList<>();
+        contactList.forEach(contact -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(contact.getUsername());
+            userDTO.setFirstName(contact.getFirstName());
+            userDTO.setLastName(contact.getLastName());
+            userDTO.setEmail(contact.getEmail());
+            userDTO.setPhone(contact.getPhone());
+            contactDTOList.add(userDTO);
+        });
+        return contactDTOList;
     }
 }
