@@ -1,20 +1,15 @@
 package com.jea.cashpals.controller;
 
 import com.jea.cashpals.dto.TransactionDTO;
-import com.jea.cashpals.entitiy.Event;
+
 import com.jea.cashpals.entitiy.Transaction;
-import com.jea.cashpals.entitiy.User;
-import com.jea.cashpals.repository.TransactionRepository;
-import com.jea.cashpals.repository.UserRepository;
 import com.jea.cashpals.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/transaction")

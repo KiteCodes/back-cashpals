@@ -1,9 +1,6 @@
 package com.jea.cashpals.controller;
 
 import com.jea.cashpals.dto.UserDTO;
-import com.jea.cashpals.entitiy.Party;
-import com.jea.cashpals.entitiy.User;
-import com.jea.cashpals.repository.UserRepository;
 
 import com.jea.cashpals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
