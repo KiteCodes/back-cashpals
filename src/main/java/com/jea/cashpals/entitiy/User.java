@@ -51,9 +51,11 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Event> eventList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "debtor")
     private List<Transaction> debtorTransactions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "indebted")
     private List<Transaction> indebtedTransactions;
     private boolean accountNonExpired;

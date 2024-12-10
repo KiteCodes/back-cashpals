@@ -27,9 +27,7 @@ public class TransactionService {
         for (Integer indebtedId : transactionDTO.getIndebtedId()) {
 
             Transaction newTransaction = new Transaction();
-            newTransaction.setName(transactionDTO.getName());
             newTransaction.setValue(transactionDTO.getValue());
-            newTransaction.setDescription(transactionDTO.getDescription());
 
             newTransaction.setDebtor(userRepository.findUserById(transactionDTO.getDebtorId()));
 
@@ -45,11 +43,10 @@ public class TransactionService {
         Transaction transaction = transactionRepository.findTransactionById(id);
         transactionRepository.delete(transaction);
     }
+
     public TransactionDTO updateTransaction(Integer id, TransactionDTO transactionDTO) {
         Transaction transaction = transactionRepository.findTransactionById(id);
-        transaction.setName(transactionDTO.getName());
         transaction.setValue(transactionDTO.getValue());
-        transaction.setDescription(transactionDTO.getDescription());
         transactionRepository.save(transaction);
         return transactionDTO;
     }
@@ -66,6 +63,7 @@ public class TransactionService {
         User user = userRepository.findUserById(id);
         return user.getDebtorTransactions().stream().map(transactionsMapper::fromTransaction).toList();
     }
+
     public List<TransactionDTO> getTransactionByIndebtedId(Integer id) {
         User user = userRepository.findUserById(id);
         return user.getIndebtedTransactions().stream().map(transactionsMapper::fromTransaction).toList();

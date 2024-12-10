@@ -7,7 +7,7 @@ public class EventDTO {
   private String name;
   private String description;
   private Float price;
-  private Integer creator;
+  private int creatorId;
   private List<Integer> usersIds;
   private int partyId;
 
@@ -35,12 +35,12 @@ public class EventDTO {
     this.price = price;
   }
 
-  public Integer getCreator() {
-    return creator;
+  public int getCreatorId() {
+    return creatorId;
   }
 
-  public void setCreator(Integer creator) {
-    this.creator = creator;
+  public void setCreatorId(int creatorId) {
+    this.creatorId = creatorId;
   }
 
   public List<Integer> getUsersIds() {

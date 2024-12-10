@@ -37,8 +37,8 @@ public class UserService {
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
         userRepository.save(user);
-
     }
+
     public UserDTO updateUser(Integer id, UserDTO userRequest) {
         User user = userRepository.findUserById(id);
 
