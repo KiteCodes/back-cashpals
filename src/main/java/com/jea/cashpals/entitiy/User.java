@@ -46,7 +46,11 @@ public class User implements UserDetails {
         inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
     private List<User> contactList;
-  
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Event> eventList;
+
     @OneToMany(mappedBy = "debtor")
     private List<Transaction> debtorTransactions;
 
@@ -180,6 +184,14 @@ public class User implements UserDetails {
 
     public void setDebtorTransactions(List<Transaction> debtorTransactions) {
         this.debtorTransactions = debtorTransactions;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
     }
 }
 

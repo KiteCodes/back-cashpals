@@ -2,6 +2,8 @@ package com.jea.cashpals.entitiy;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "event")
 public class Event {
@@ -11,9 +13,19 @@ public class Event {
     private int id;
     private String name;
     private String description;
+    private Float price;
+
+    @ManyToOne
+    private User creator;
+
+    @ManyToMany
+    private List<User> memberList;
 
     @ManyToOne
     private Party party;
+
+    @OneToMany(mappedBy = "event")
+    private List<Transaction> transactionList;
 
     public int getId() {
         return id;
@@ -47,4 +59,35 @@ public class Event {
         this.party = group;
     }
 
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = Math.round(price * 100) / 100.0f;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public List<User> getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(List<User> memberList) {
+        this.memberList = memberList;
+    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
+    }
 }

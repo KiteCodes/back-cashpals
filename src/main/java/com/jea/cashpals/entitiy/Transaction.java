@@ -22,6 +22,9 @@ public class Transaction {
     @ManyToOne
     private Balance balance;
 
+    @ManyToOne
+    private Event event;
+
     public int getId() {
         return id;
     }
@@ -78,4 +81,11 @@ public class Transaction {
         this.indebted = indebted;
     }
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }
