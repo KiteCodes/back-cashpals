@@ -4,9 +4,18 @@ import java.util.List;
 
 public class TransactionDTO {
 
+    private int eventId;
     private int debtorId;
     private List<Integer> indebtedId;
     private float value;
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
 
     public int getDebtorId() {
         return debtorId;

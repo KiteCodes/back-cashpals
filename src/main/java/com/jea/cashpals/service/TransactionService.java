@@ -4,6 +4,7 @@ import com.jea.cashpals.dto.TransactionDTO;
 import com.jea.cashpals.entitiy.Transaction;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.TransactionMapper;
+import com.jea.cashpals.repository.EventRepository;
 import com.jea.cashpals.repository.TransactionRepository;
 import com.jea.cashpals.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +18,28 @@ public class TransactionService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    EventRepository eventRepository;
+
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     TransactionMapper transactionsMapper;
 
     public List<Transaction> createTransaction(TransactionDTO transactionDTO) {
         List<Transaction> createdTransactions = new ArrayList<>();
+
         for (Integer indebtedId : transactionDTO.getIndebtedId()) {
-
             Transaction newTransaction = new Transaction();
+            newTransaction.setEvent(eventRepository.findEventById(transactionDTO.getEventId()));
             newTransaction.setValue(transactionDTO.getValue());
-
             newTransaction.setDebtor(userRepository.findUserById(transactionDTO.getDebtorId()));
-
             newTransaction.setIndebted(userRepository.findUserById(indebtedId));
 
             transactionRepository.save(newTransaction);
             createdTransactions.add(newTransaction);
-
         }
         return createdTransactions;
     }
