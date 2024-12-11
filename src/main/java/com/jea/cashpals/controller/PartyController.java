@@ -2,6 +2,9 @@ package com.jea.cashpals.controller;
 
 import com.jea.cashpals.dto.PartyDTO;
 
+import com.jea.cashpals.dto.UserDTO;
+import com.jea.cashpals.entitiy.Party;
+import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.service.PartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +24,15 @@ public class PartyController {
     public List<PartyDTO> getParties(){
         return partyService.getParties();
     }
+
     @GetMapping(path = "/{id}")
-    public PartyDTO getPartyById(@PathVariable Integer id){
+    public Party getPartyById(@PathVariable Integer id){
         return partyService.getPartyById(id);
     }
     @PostMapping
-    public ResponseEntity<PartyDTO> createParty(@RequestBody PartyDTO partyDTO) {
-        return new ResponseEntity<>(partyService.createParty(partyDTO),HttpStatus.CREATED);
+    public ResponseEntity<?> createParty(@RequestBody PartyDTO partyDTO) {
+        partyService.createParty(partyDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{id}")
@@ -39,5 +44,9 @@ public class PartyController {
         partyService.deleteParty(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PutMapping(path = "/{partyId}/addUsers")
+    public ResponseEntity<List<UserDTO>> addPartyUser(@RequestBody PartyDTO partyDTO, @PathVariable Integer partyId) {
 
+        return new ResponseEntity<>(partyService.addPartyMembers(partyDTO.getUsersIds(), partyId),HttpStatus.OK);
+    }
 }

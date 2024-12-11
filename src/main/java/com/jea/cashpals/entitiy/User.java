@@ -34,11 +34,18 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "owner")
-    private List<Party> partyList;
+    private List<Party> partyOwnerList;
 
     @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "party_user_list",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "party_id")
+    )
+    private List<Party> partyList;
+
     @ManyToMany
     @JoinTable(
         name = "user_contacts",

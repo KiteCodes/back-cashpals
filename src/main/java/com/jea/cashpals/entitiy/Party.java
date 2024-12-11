@@ -22,6 +22,11 @@ public class Party {
     private List<Event> eventList;
 
     @ManyToMany
+    @JoinTable(
+            name = "party_user_list",
+            joinColumns = @JoinColumn(name = "party_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> userList;
 
     public int getId() {
