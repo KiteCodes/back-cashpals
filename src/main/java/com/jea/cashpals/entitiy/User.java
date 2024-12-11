@@ -46,10 +46,16 @@ public class User implements UserDetails {
         inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
     private List<User> contactList;
-  
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Event> eventList;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "debtor")
     private List<Transaction> debtorTransactions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "indebted")
     private List<Transaction> indebtedTransactions;
     private boolean accountNonExpired;
@@ -180,6 +186,14 @@ public class User implements UserDetails {
 
     public void setDebtorTransactions(List<Transaction> debtorTransactions) {
         this.debtorTransactions = debtorTransactions;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
     }
 }
 
