@@ -2,14 +2,13 @@ package com.jea.cashpals.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.util.List;
 
-@Data
 @Entity
 @Table(name = "party")
 public class Party {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

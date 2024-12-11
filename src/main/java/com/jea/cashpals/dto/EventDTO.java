@@ -1,11 +1,14 @@
 package com.jea.cashpals.dto;
 
-import lombok.Data;
+import java.util.List;
 
-@Data
 public class EventDTO {
+
   private String name;
   private String description;
+  private float price;
+  private int creatorId;
+  private List<Integer> usersIds;
   private int partyId;
 
   public String getName() {
@@ -24,11 +27,35 @@ public class EventDTO {
     this.description = description;
   }
 
+  public float getPrice() {
+    return price;
+  }
+
+  public void setPrice(float price) {
+    this.price = price;
+  }
+
+  public int getCreatorId() {
+    return creatorId;
+  }
+
+  public void setCreatorId(int creatorId) {
+    this.creatorId = creatorId;
+  }
+
+  public List<Integer> getUsersIds() {
+    return usersIds;
+  }
+
+  public void setUsersIds(List<Integer> usersIds) {
+    this.usersIds = usersIds;
+  }
+
   public int getPartyId() {
     return partyId;
   }
 
-  public void setPartyId(int groupId) {
-    this.partyId = groupId;
+  public void setPartyId(int partyId) {
+    this.partyId = partyId;
   }
 }

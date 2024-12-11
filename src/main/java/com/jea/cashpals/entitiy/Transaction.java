@@ -1,20 +1,15 @@
 package com.jea.cashpals.entitiy;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.util.List;
 
 @Entity
-@Data
 @Table(name = "transaction")
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String description;
-    private float value;
+    private Float value;
 
     @ManyToOne
     private User debtor;
@@ -25,6 +20,9 @@ public class Transaction {
     @ManyToOne
     private Balance balance;
 
+    @ManyToOne
+    private Event event;
+
     public int getId() {
         return id;
     }
@@ -33,28 +31,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public float getValue() {
+    public Float getValue() {
         return value;
     }
 
-    public void setValue(float value) {
-        this.value = value;
+    public void setValue(Float value) {
+        this.value = Math.round(value * 100) / 100.0f;;
     }
 
     public Balance getBalance() {
@@ -81,4 +63,11 @@ public class Transaction {
         this.indebted = indebted;
     }
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }

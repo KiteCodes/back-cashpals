@@ -1,9 +1,8 @@
 package com.jea.cashpals.dto;
 
-import lombok.Data;
-
-@Data
+// TODO
 public class SimpleUserDTO {
+
     private String username;
     private float balance;
     //in progress
