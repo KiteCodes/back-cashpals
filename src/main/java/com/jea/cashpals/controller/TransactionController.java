@@ -28,9 +28,9 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Transaction>> createTransactions(@RequestBody TransactionDTO transactionDTO){
-        List<Transaction> createdTransactions = transactionService.createTransaction(transactionDTO);
-        return new ResponseEntity<>(createdTransactions,HttpStatus.CREATED);
+    public ResponseEntity<?> createTransactions(@RequestBody TransactionDTO transactionDTO){
+        transactionService.createTransaction(transactionDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/debtor/{id}")
