@@ -21,27 +21,36 @@ public class PartyService {
     PartyRepository partyRepository;
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     PartyMapper partyMapper;
-
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    UserService userService;
 
-    public void createParty( PartyDTO partyDTO){
+    public PartyDTO createParty( PartyDTO partyDTO){
 
-        User user = userRepository.findUserById(partyDTO.getOwnerId());
+        List<User> users = userService.getUsersById(partyDTO.getUsersIds());
+        User owner = userService.getUserById(partyDTO.getOwnerId());
+        Party party = partyMapper.fromPartyDTO(partyDTO,owner,users);
 
-        Party party = new Party();
-        party.setOwner(user);
-        party.setName(partyDTO.getName());
-        party.setDescription(partyDTO.getDescription());
-        List<User> usersList = new ArrayList<>();
-        for (int j=0; j < partyDTO.getUsersIds().size(); j++) {
-            usersList.add(userRepository.findUserById(partyDTO.getUsersIds().get(j)));
-        }
-        party.setUserList(usersList);
-        partyRepository.save(party);
+       // User owner = userRepository.findUserById(partyDTO.getOwnerId());
+
+//        Party party = new Party();
+//        party.setOwner(owner);
+//        party.setName(partyDTO.getName());
+//        party.setDescription(partyDTO.getDescription());
+//        List<User> usersList = new ArrayList<>();
+//        if (partyDTO.getUsersIds()!=null && !partyDTO.getUsersIds().isEmpty()) {
+//            for (int i=0; i < partyDTO.getUsersIds().size(); i++) {
+//                usersList.add(userRepository.findUserById(partyDTO.getUsersIds().get(i)));
+//            }
+//        }
+//        usersList.add(owner);
+//        party.setUserList(usersList);
+//        partyRepository.save(party);
+        //partyMapper.fromParty(party);
+        return null;
     }
 
     public PartyDTO updateParty(Integer id, PartyDTO partyRequest) {
@@ -67,10 +76,10 @@ public class PartyService {
     }
 
 
-    public List<UserDTO> addPartyMembers(List<Integer> usersIds, Integer id) {
-            Party party = partyRepository.findPartyById(id);
+    public List<UserDTO> addPartyMembers(List<Integer> usersIds, Integer partyId) {
+            Party party = partyRepository.findPartyById(partyId);
             if (party == null) {
-                throw new IllegalArgumentException("Party not found for ID: " + id);
+                throw new IllegalArgumentException("Party not found for ID: " + partyId);
             }
             List<User> users = usersIds.stream()
                     .map(userRepository::findUserById)

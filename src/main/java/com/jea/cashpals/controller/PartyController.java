@@ -30,9 +30,8 @@ public class PartyController {
         return partyService.getPartyById(id);
     }
     @PostMapping
-    public ResponseEntity<?> createParty(@RequestBody PartyDTO partyDTO) {
-        partyService.createParty(partyDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<PartyDTO> createParty(@RequestBody PartyDTO partyDTO) {
+        return new ResponseEntity<>(partyService.createParty(partyDTO),HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{id}")

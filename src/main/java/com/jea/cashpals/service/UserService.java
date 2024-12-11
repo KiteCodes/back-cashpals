@@ -1,5 +1,6 @@
 package com.jea.cashpals.service;
 
+import com.jea.cashpals.dto.PartyDTO;
 import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.UserMapper;
@@ -91,5 +92,12 @@ public class UserService {
             contactDTOList.add(userDTO);
         });
         return contactDTOList;
+    }
+    public List<User> getUsersById(List<Integer> ids) {
+        return userRepository.findAllById(ids);
+    }
+
+    public User getUserById(int id) {
+        return userRepository.findUserById(id);
     }
 }
