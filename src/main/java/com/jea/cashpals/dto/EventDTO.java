@@ -10,6 +10,7 @@ public class EventDTO {
   private int creatorId;
   private List<Integer> usersIds;
   private int partyId;
+  private List<Integer> transactionIds;
 
   public String getName() {
     return name;

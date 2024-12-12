@@ -66,5 +66,5 @@ public class UserController {
         return userService.getUsersByPartyId(id);
 
     }
-    //asd
+
 }
