@@ -52,4 +52,5 @@ public class PartyController {
     public ResponseEntity<List<PartyDTO>> getPartiesByUserId(@PathVariable Integer id) {
         return new ResponseEntity<>(partyService.getPartiesByUserId(id),HttpStatus.OK);
     }
+    //asd
 }

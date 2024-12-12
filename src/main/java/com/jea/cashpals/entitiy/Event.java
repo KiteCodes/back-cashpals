@@ -13,6 +13,7 @@ public class Event {
     private int id;
     private String name;
     private String description;
+    private float price;
 
     @ManyToOne
     private User creator;
@@ -82,4 +83,11 @@ public class Event {
         this.transactionList = transactionList;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }

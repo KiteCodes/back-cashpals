@@ -101,4 +101,5 @@ public class PartyService {
         }
         return partyDTOList;
     }
+    //asd
 }
