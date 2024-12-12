@@ -1,12 +1,8 @@
 package com.jea.cashpals.service;
 
-import com.jea.cashpals.dto.PartyDTO;
-import com.jea.cashpals.dto.SimpleUserDTO;
 import com.jea.cashpals.dto.UserDTO;
-import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.UserMapper;
-import com.jea.cashpals.repository.PartyRepository;
 import com.jea.cashpals.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,9 +22,6 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    PartyRepository partyRepository;
 
     public void saveUser( UserDTO userDTO) {
         User user = new User();
@@ -98,31 +91,5 @@ public class UserService {
             contactDTOList.add(userDTO);
         });
         return contactDTOList;
-    }
-    public List<User> getUsersById(List<Integer> ids) {
-        return userRepository.findAllById(ids);
-    }
-
-    public User getUserById(int id) {
-        return userRepository.findUserById(id);
-    }
-
-    public List<SimpleUserDTO> getUsersByPartyId(Integer id) {
-        List<SimpleUserDTO> simpleUsers = new ArrayList<>();
-        List<User> userList = new ArrayList<>();
-        Party party = partyRepository.findPartyById(id);
-        party.getUserList().forEach(user -> userList.add(user));
-
-        userList.forEach(user -> {
-            SimpleUserDTO simpleUserDTO = new SimpleUserDTO();
-            simpleUserDTO.setId(user.getId());
-            simpleUserDTO.setUsername(user.getUsername());
-            simpleUserDTO.setFirstName(user.getFirstName());
-            simpleUserDTO.setLastName(user.getLastName());
-            simpleUserDTO.setEmail(user.getEmail());
-            simpleUsers.add(simpleUserDTO);
-        });
-
-        return simpleUsers;
     }
 }

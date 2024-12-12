@@ -33,19 +33,12 @@ public class User implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String email;
+
     @JsonIgnore
     @OneToMany(mappedBy = "owner")
-    private List<Party> partyOwnerList;
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "party_user_list",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "party_id")
-    )
     private List<Party> partyList;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "user_contacts",
@@ -201,14 +194,6 @@ public class User implements UserDetails {
 
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
-    }
-
-    public List<Party> getPartyOwnerList() {
-        return partyOwnerList;
-    }
-
-    public void setPartyOwnerList(List<Party> partyOwnerList) {
-        this.partyOwnerList = partyOwnerList;
     }
 }
 

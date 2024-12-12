@@ -2,7 +2,6 @@ package com.jea.cashpals.controller;
 
 
 
-import com.jea.cashpals.dto.SimpleUserDTO;
 import com.jea.cashpals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,10 +59,5 @@ public class UserController {
     public List<UserDTO> getContacts(@RequestParam("id") Integer id){
         User user = userRepository.findUserById(id);
         return userService.getContactList(user.getContactList());
-    }
-    @GetMapping(path = "/party/{id}")
-    public List<SimpleUserDTO> getUsersByPartyId(@PathVariable Integer id){
-        return userService.getUsersByPartyId(id);
-
     }
 }
