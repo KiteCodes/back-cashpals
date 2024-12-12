@@ -33,6 +33,7 @@ public class PartyService {
         List<User> users = userService.getUsersById(partyDTO.getUsersIds());
         User owner = userService.getUserById(partyDTO.getOwnerId());
         Party party = partyMapper.fromPartyDTO(partyDTO,owner,users);
+        party.getUserList().add(owner);
         partyRepository.save(party);
         return partyMapper.fromParty(party,partyDTO.getOwnerId(),partyDTO.getUsersIds());
     }
@@ -90,6 +91,14 @@ public class PartyService {
                     .map(userMapper::fromUser)
                     .toList();
         }
-
-
+    public List<PartyDTO> getPartiesByUserId(Integer userId){
+        User user = userRepository.findUserById(userId);
+        List <Party> parties = new ArrayList<>();
+        parties.addAll(user.getPartyList());
+        List<PartyDTO> partyDTOList = new ArrayList<>();
+        for (Party party : parties) {
+            partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList()));
+        }
+        return partyDTOList;
+    }
 }
