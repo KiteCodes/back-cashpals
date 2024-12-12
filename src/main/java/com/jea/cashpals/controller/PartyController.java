@@ -45,12 +45,11 @@ public class PartyController {
     }
     @PutMapping(path = "/{partyId}/addUsers")
     public ResponseEntity<List<UserDTO>> addPartyUsers(@RequestBody PartyDTO partyDTO, @PathVariable Integer partyId) {
-
         return new ResponseEntity<>(partyService.addPartyMembers(partyDTO.getUsersIds(), partyId),HttpStatus.OK);
     }
     @GetMapping(path = "/user/{id}")
     public ResponseEntity<List<PartyDTO>> getPartiesByUserId(@PathVariable Integer id) {
         return new ResponseEntity<>(partyService.getPartiesByUserId(id),HttpStatus.OK);
     }
-    //asd
+
 }
