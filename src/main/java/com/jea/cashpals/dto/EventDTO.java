@@ -59,4 +59,12 @@ public class EventDTO {
   public void setPartyId(int partyId) {
     this.partyId = partyId;
   }
+
+  public List<Integer> getTransactionIds() {
+    return transactionIds;
+  }
+
+  public void setTransactionIds(List<Integer> transactionIds) {
+    this.transactionIds = transactionIds;
+  }
 }
