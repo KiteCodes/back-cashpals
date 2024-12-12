@@ -18,9 +18,9 @@ public interface PartyMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "users", target = "userList")
     Party fromPartyDTO(PartyDTO source, User owner, List<User> users);
-    @Mapping(source = "owner.id", target = "ownerId") //TODO: ARREGLAR ESTO
-    @Mapping(source = "userList", target = "userIds")
-    PartyDTO fromParty(Party source, Integer ownerId, List<Integer> userIds);
+    @Mapping(source = "ownerId", target = "ownerId") //TODO: ARREGLAR ESTO
+    @Mapping(source = "usersIds", target = "usersIds")
+    PartyDTO fromParty(Party source, Integer ownerId, List<Integer> usersIds);
 
 
 }

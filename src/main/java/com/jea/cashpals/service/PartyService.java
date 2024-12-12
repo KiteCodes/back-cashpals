@@ -59,8 +59,9 @@ public class PartyService {
         party.setOwner(userRepository.findUserById(partyRequest.getOwnerId()));
         party.setName(partyRequest.getName());
         party.setDescription(partyRequest.getDescription());
-
-        return partyMapper.fromParty(partyRepository.save(party));
+        // TODO: TERMINAR ESTO
+        //partyMapper.fromParty(partyRepository.save(party));
+        return null;
     }
     public void deleteParty(Integer id) {
         partyRepository.delete(partyRepository.findPartyById(id));
