@@ -22,11 +22,11 @@ public class PartyController {
 
     @GetMapping
     public List<PartyDTO> getParties(){
-        return partyService.getParties();
+        return partyService.getAllParties();
     }
 
     @GetMapping(path = "/{id}")
-    public Party getPartyById(@PathVariable Integer id){
+    public PartyDTO getPartyById(@PathVariable Integer id){
         return partyService.getPartyById(id);
     }
     @PostMapping
@@ -44,7 +44,7 @@ public class PartyController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping(path = "/{partyId}/addUsers")
-    public ResponseEntity<List<UserDTO>> addPartyUser(@RequestBody PartyDTO partyDTO, @PathVariable Integer partyId) {
+    public ResponseEntity<List<UserDTO>> addPartyUsers(@RequestBody PartyDTO partyDTO, @PathVariable Integer partyId) {
 
         return new ResponseEntity<>(partyService.addPartyMembers(partyDTO.getUsersIds(), partyId),HttpStatus.OK);
     }

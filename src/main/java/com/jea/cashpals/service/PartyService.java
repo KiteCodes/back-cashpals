@@ -33,24 +33,8 @@ public class PartyService {
         List<User> users = userService.getUsersById(partyDTO.getUsersIds());
         User owner = userService.getUserById(partyDTO.getOwnerId());
         Party party = partyMapper.fromPartyDTO(partyDTO,owner,users);
-
-       // User owner = userRepository.findUserById(partyDTO.getOwnerId());
-
-//        Party party = new Party();
-//        party.setOwner(owner);
-//        party.setName(partyDTO.getName());
-//        party.setDescription(partyDTO.getDescription());
-//        List<User> usersList = new ArrayList<>();
-//        if (partyDTO.getUsersIds()!=null && !partyDTO.getUsersIds().isEmpty()) {
-//            for (int i=0; i < partyDTO.getUsersIds().size(); i++) {
-//                usersList.add(userRepository.findUserById(partyDTO.getUsersIds().get(i)));
-//            }
-//        }
-//        usersList.add(owner);
-//        party.setUserList(usersList);
-//        partyRepository.save(party);
-        //partyMapper.fromParty(party);
-        return null;
+        partyRepository.save(party);
+        return partyMapper.fromParty(party,partyDTO.getOwnerId(),partyDTO.getUsersIds());
     }
 
     public PartyDTO updateParty(Integer id, PartyDTO partyRequest) {
@@ -59,23 +43,30 @@ public class PartyService {
         party.setOwner(userRepository.findUserById(partyRequest.getOwnerId()));
         party.setName(partyRequest.getName());
         party.setDescription(partyRequest.getDescription());
-        // TODO: TERMINAR ESTO
-        //partyMapper.fromParty(partyRepository.save(party));
-        return null;
+
+        party.setUserList(userService.getUsersById(partyRequest.getUsersIds()));
+
+        partyRepository.save(party);
+
+        return partyMapper.fromParty(party,partyRequest.getOwnerId(),partyRequest.getUsersIds());
     }
     public void deleteParty(Integer id) {
         partyRepository.delete(partyRepository.findPartyById(id));
     }
-    public List<PartyDTO> getParties(){
+
+    public List<PartyDTO> getAllParties() {
         List<Party> parties = partyRepository.findAll();
-        List<PartyDTO> partyDTOs = parties.stream().map(partyMapper::fromParty).toList();
+        List<PartyDTO> partyDTOList = new ArrayList<>();
+        for (Party party : parties) {
+            partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList()));
 
-        return partyDTOs;
+        }
+        return partyDTOList;
     }
-    public Party getPartyById(Integer id){
-        return partyRepository.findPartyById(id);
+    public PartyDTO getPartyById(Integer id) {
+        Party party = partyRepository.findPartyById(id);
+        return partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList());
     }
-
 
     public List<UserDTO> addPartyMembers(List<Integer> usersIds, Integer partyId) {
             Party party = partyRepository.findPartyById(partyId);
