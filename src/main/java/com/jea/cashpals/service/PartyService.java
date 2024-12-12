@@ -51,4 +51,5 @@ public class PartyService {
     public PartyDTO getPartyById(Integer id){
         return partyMapper.fromParty(partyRepository.findPartyById(id));
     }
+    //asd
 }

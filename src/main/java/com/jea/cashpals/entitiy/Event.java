@@ -59,14 +59,6 @@ public class Event {
         this.party = group;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = Math.round(price * 100) / 100.0f;
-    }
-
     public User getCreator() {
         return creator;
     }
@@ -89,5 +81,13 @@ public class Event {
 
     public void setTransactionList(List<Transaction> transactionList) {
         this.transactionList = transactionList;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }
