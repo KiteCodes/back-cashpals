@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> {
                     try {
                         // Definimos que urls estarán desprotegidas y no necesitarán recibir las credenciales para poder ser accedidas
-                        requests.requestMatchers( "/signin", "/signup","/swagger-ui/**","auth/basic/login", "/v3/api-docs/**","/v2/api-docs/**","/webjars/**").permitAll().anyRequest().authenticated();
+                        requests.requestMatchers( "/signin", "/signup").permitAll().anyRequest().authenticated();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
