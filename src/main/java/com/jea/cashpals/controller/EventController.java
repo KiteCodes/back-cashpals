@@ -21,7 +21,7 @@ public class EventController {
         return eventService.getEvents();
     }
 
-    @GetMapping(path = "/events/{id}")
+    @GetMapping(path = "/party/{id}")
     public List<EventDTO> getEventsByPartyId(@PathVariable Integer id){
         return eventService.getEventsByParty(id);
     }

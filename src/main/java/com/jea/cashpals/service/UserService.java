@@ -63,9 +63,20 @@ public class UserService {
         User user = userRepository.findUserById(id);
         userRepository.delete(user);
     }
-    public List<UserDTO> getAllUsers() {
+    public List<SimpleUserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream().map(userMapper::fromUser).toList();
+        List<SimpleUserDTO> simpleUsers = new ArrayList<>();
+
+        users.forEach(user -> {
+            SimpleUserDTO simpleUser = new SimpleUserDTO();
+            simpleUser.setId(user.getId());
+            simpleUser.setUsername(user.getUsername());
+            simpleUser.setFirstName(user.getFirstName());
+            simpleUser.setLastName(user.getLastName());
+            simpleUser.setEmail(user.getEmail());
+            simpleUsers.add(simpleUser);
+        });
+        return simpleUsers;
     }
 
     public UserDTO findUserById(Integer id) {
