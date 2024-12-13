@@ -22,6 +22,7 @@ public interface EventMapper {
 
     @Mapping(source = "transactionIds", target = "transactionIds")
     @Mapping(source = "creatorId", target = "creatorId")
-    EventDTO fromEvent(Event source, Integer creatorId, List<Integer> transactionIds);
+    @Mapping(source = "memberListIds", target = "usersIds")
+    EventDTO fromEvent(Event source, Integer creatorId, List<Integer> transactionIds, List<Integer> memberListIds);
 
 }

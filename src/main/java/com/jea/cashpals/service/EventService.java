@@ -40,6 +40,7 @@ public class EventService {
             users.add(userRepository.findUserById(userId));
         });
         event.setMemberList(users);
+        event.getMemberList().add(event.getCreator());
         eventRepository.save(event);
         return eventDTO;
     }
@@ -53,26 +54,29 @@ public class EventService {
         event.setDescription(eventDTO.getDescription());
         event.setName(eventDTO.getName());
         event.setParty(partyRepository.findPartyById(eventDTO.getPartyId()));
+        event.setCreator(userRepository.findUserById(eventDTO.getCreatorId()));
+        event.setPrice(eventDTO.getPrice());
+        eventDTO.getUsersIds().forEach(userId -> event.getMemberList().add(userRepository.findUserById(userId)));
         eventRepository.save(event);
-        return eventMapper.fromEvent(event, eventDTO.getCreatorId(), eventDTO.getTransactionIds());
+        return eventMapper.fromEvent(event, eventDTO.getCreatorId(), eventDTO.getTransactionIds(),eventDTO.getUsersIds());
     }
 
     public List<EventDTO> getEvents() {
         List<Event> events = eventRepository.findAll();
         List<EventDTO> eventDTOS = new ArrayList<>();
-        events.forEach(event -> eventDTOS.add(eventMapper.fromEvent(event,event.getCreator().getId(), event.getTransactionList().stream().map(Transaction::getId).toList())));
+        events.forEach(event -> eventDTOS.add(eventMapper.fromEvent(event,event.getCreator().getId(), event.getTransactionList().stream().map(Transaction::getId).toList(),event.getMemberList().stream().map(User::getId).toList())));
         return eventDTOS;
     }
 
     public EventDTO getEventById(Integer id) {
         Event event = eventRepository.findEventById(id);
-        return eventMapper.fromEvent(event, event.getCreator().getId(), event.getTransactionList().stream().map(Transaction::getId).toList());
+        return eventMapper.fromEvent(event, event.getCreator().getId(), event.getTransactionList().stream().map(Transaction::getId).toList(),event.getMemberList().stream().map(User::getId).toList());
     }
 
     public List<EventDTO> getEventsByParty(Integer partyId) {
         List<Event> events = new ArrayList<>();
         events = eventRepository.findEventByPartyId(partyId);
-        return events.stream().map(event -> eventMapper.fromEvent(event, event.getCreator().getId(), event.getTransactionList().stream().map(Transaction::getId).toList())).toList();
+        return events.stream().map(event -> eventMapper.fromEvent(event, event.getCreator().getId(), event.getTransactionList().stream().map(Transaction::getId).toList(),event.getMemberList().stream().map(User::getId).toList())).toList();
     }
 
     public List<Event> getEventsById(List<Integer> ids) {
