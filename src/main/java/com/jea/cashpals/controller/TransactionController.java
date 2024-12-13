@@ -28,9 +28,9 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Transaction>> createTransactions(@RequestBody TransactionDTO transactionDTO){
-        List<Transaction> createdTransactions = transactionService.createTransaction(transactionDTO);
-        return new ResponseEntity<>(createdTransactions,HttpStatus.CREATED);
+    public ResponseEntity<?> createTransactions(@RequestBody TransactionDTO transactionDTO){
+        transactionService.createTransaction(transactionDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/debtor/{id}")
@@ -40,7 +40,7 @@ public class TransactionController {
 
     @GetMapping(path = "/indebted/{id}")
     public ResponseEntity<List<TransactionDTO>>getTransactionByIndebtedId(@PathVariable Integer id){
-       return new ResponseEntity<>(transactionService.getTransactionByIndebtedId(id),HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.getTransactionByIndebtedId(id),HttpStatus.OK);
     }
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteTransaction(@PathVariable Integer id) {
