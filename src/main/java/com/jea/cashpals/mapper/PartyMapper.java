@@ -14,10 +14,11 @@ import java.util.List;
 public interface PartyMapper {
     PartyMapper INSTANCE = Mappers.getMapper(PartyMapper.class);
 
-    @Mapping(source = "ownerId", target = "owner")
+    @Mapping(source = "owner", target = "owner")
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "users", target = "userList")
     Party fromPartyDTO(PartyDTO source, User owner, List<User> users);
+
     @Mapping(source = "ownerId", target = "ownerId")
     @Mapping(source = "usersIds", target = "usersIds")
     PartyDTO fromParty(Party source, Integer ownerId, List<Integer> usersIds);
