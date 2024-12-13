@@ -65,4 +65,10 @@ public class EventService {
         Event event = eventRepository.findEventById(id);
         return eventMapper.fromEvent(event);
     }
+
+    public List<EventDTO> getEventsByParty(Integer partyId) {
+        List<Event> events = new ArrayList<>();
+        events = eventRepository.findEventByPartyId(partyId);
+        return events.stream().map(eventMapper::fromEvent).toList();
+    }
 }

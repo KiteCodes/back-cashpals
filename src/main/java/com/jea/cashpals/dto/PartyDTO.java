@@ -9,6 +9,7 @@ public class PartyDTO {
     private String description;
     private int ownerId;
     public List<Integer> usersIds;
+    public List<Integer> eventsIds;
 
     public String getName() {
         return name;
@@ -48,5 +49,13 @@ public class PartyDTO {
 
     public void setUsersIds(List<Integer> usersIds) {
         this.usersIds = usersIds;
+    }
+
+    public List<Integer> getEventsIds() {
+        return eventsIds;
+    }
+
+    public void setEventsIds(List<Integer> eventsIds) {
+        this.eventsIds = eventsIds;
     }
 }
