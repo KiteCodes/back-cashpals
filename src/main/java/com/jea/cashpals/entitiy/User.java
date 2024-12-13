@@ -33,23 +33,36 @@ public class User implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String email;
-
     @JsonIgnore
     @OneToMany(mappedBy = "owner")
-    private List<Party> partyList;
+    private List<Party> partyOwnerList;
 
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "user_contacts",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "contact_id")
+            name = "party_user_list",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "party_id")
+    )
+    private List<Party> partyList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_contacts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
     private List<User> contactList;
-  
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Event> eventList;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "debtor")
     private List<Transaction> debtorTransactions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "indebted")
     private List<Transaction> indebtedTransactions;
     private boolean accountNonExpired;
@@ -165,7 +178,7 @@ public class User implements UserDetails {
     public void setContactList(List<User> contactList) {
         this.contactList = contactList;
     }
-  
+
     public List<Transaction> getIndebtedTransactions() {
         return indebtedTransactions;
     }
@@ -180,6 +193,22 @@ public class User implements UserDetails {
 
     public void setDebtorTransactions(List<Transaction> debtorTransactions) {
         this.debtorTransactions = debtorTransactions;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public List<Party> getPartyOwnerList() {
+        return partyOwnerList;
+    }
+
+    public void setPartyOwnerList(List<Party> partyOwnerList) {
+        this.partyOwnerList = partyOwnerList;
     }
 }
 

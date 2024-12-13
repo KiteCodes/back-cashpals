@@ -1,6 +1,7 @@
 package com.jea.cashpals.entitiy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jea.cashpals.entitiy.Event;
+import com.jea.cashpals.entitiy.User;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -22,6 +23,11 @@ public class Party {
     private List<Event> eventList;
 
     @ManyToMany
+    @JoinTable(
+            name = "party_user_list",
+            joinColumns = @JoinColumn(name = "party_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> userList;
 
     public int getId() {
@@ -71,4 +77,5 @@ public class Party {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
+
 }
