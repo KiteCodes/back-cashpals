@@ -2,6 +2,7 @@ package com.jea.cashpals.service;
 
 import com.jea.cashpals.dto.PartyDTO;
 import com.jea.cashpals.dto.UserDTO;
+import com.jea.cashpals.entitiy.Event;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.PartyMapper;
@@ -27,15 +28,18 @@ public class PartyService {
     UserMapper userMapper;
     @Autowired
     UserService userService;
+    @Autowired
+    EventService eventService;
 
     public PartyDTO createParty( PartyDTO partyDTO){
 
         List<User> users = userService.getUsersById(partyDTO.getUsersIds());
         User owner = userService.getUserById(partyDTO.getOwnerId());
-        Party party = partyMapper.fromPartyDTO(partyDTO,owner,users);
+        List<Event> events = eventService.getEventsById((partyDTO.getEventsIds()));
+        Party party = partyMapper.fromPartyDTO(partyDTO,owner,users,events);
         party.getUserList().add(owner);
         partyRepository.save(party);
-        return partyMapper.fromParty(party,partyDTO.getOwnerId(),partyDTO.getUsersIds());
+        return partyMapper.fromParty(party,partyDTO.getOwnerId(),partyDTO.getUsersIds(),partyDTO.getEventsIds());
     }
 
     public PartyDTO updateParty(Integer id, PartyDTO partyRequest) {
@@ -44,12 +48,12 @@ public class PartyService {
         party.setOwner(userRepository.findUserById(partyRequest.getOwnerId()));
         party.setName(partyRequest.getName());
         party.setDescription(partyRequest.getDescription());
-
+        party.setEventList(eventService.getEventsById(partyRequest.getEventsIds()));
         party.setUserList(userService.getUsersById(partyRequest.getUsersIds()));
 
         partyRepository.save(party);
 
-        return partyMapper.fromParty(party,partyRequest.getOwnerId(),partyRequest.getUsersIds());
+        return partyMapper.fromParty(party,partyRequest.getOwnerId(),partyRequest.getUsersIds(),partyRequest.getEventsIds());
     }
     public void deleteParty(Integer id) {
         partyRepository.delete(partyRepository.findPartyById(id));
@@ -59,14 +63,14 @@ public class PartyService {
         List<Party> parties = partyRepository.findAll();
         List<PartyDTO> partyDTOList = new ArrayList<>();
         for (Party party : parties) {
-            partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList()));
+            partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList(), party.getEventList().stream().map(Event::getId).toList()));
 
         }
         return partyDTOList;
     }
     public PartyDTO getPartyById(Integer id) {
         Party party = partyRepository.findPartyById(id);
-        return partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList());
+        return partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList(), party.getEventList().stream().map(Event::getId).toList());
     }
 
     public List<UserDTO> addPartyMembers(List<Integer> usersIds, Integer partyId) {
@@ -97,7 +101,7 @@ public class PartyService {
         parties.addAll(user.getPartyList());
         List<PartyDTO> partyDTOList = new ArrayList<>();
         for (Party party : parties) {
-            partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList()));
+            partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList(), party.getEventList().stream().map(Event::getId).toList()));
         }
         return partyDTOList;
     }
