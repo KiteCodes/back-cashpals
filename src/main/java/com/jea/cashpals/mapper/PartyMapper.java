@@ -14,7 +14,7 @@ import java.util.List;
 public interface PartyMapper {
     PartyMapper INSTANCE = Mappers.getMapper(PartyMapper.class);
 
-    @Mapping(source = "owner", target = "owner")
+    @Mapping(source = "ownerId", target = "owner")
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "users", target = "userList")
     Party fromPartyDTO(PartyDTO source, User owner, List<User> users);
