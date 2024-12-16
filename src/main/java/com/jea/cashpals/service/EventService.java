@@ -1,12 +1,14 @@
 package com.jea.cashpals.service;
 
 import com.jea.cashpals.dto.EventDTO;
+import com.jea.cashpals.dto.TransactionDTO;
 import com.jea.cashpals.entitiy.Event;
 import com.jea.cashpals.entitiy.Transaction;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.EventMapper;
 import com.jea.cashpals.repository.EventRepository;
 import com.jea.cashpals.repository.PartyRepository;
+import com.jea.cashpals.repository.TransactionRepository;
 import com.jea.cashpals.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +30,37 @@ public class EventService {
     @Autowired
     EventMapper eventMapper;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    TransactionRepository transactionRepository;
+
     public EventDTO createEvent(EventDTO eventDTO) {
         Event event = new Event();
         List<User> users = new ArrayList<>();
+
         event.setDescription(eventDTO.getDescription());
         event.setName(eventDTO.getName());
         event.setParty(partyRepository.findPartyById(eventDTO.getPartyId()));
         event.setCreator(userRepository.findUserById(eventDTO.getCreatorId()));
         event.setPrice(eventDTO.getPrice());
+
+        eventRepository.save(event);
+
         eventDTO.getUsersIds().forEach(userId -> {
             users.add(userRepository.findUserById(userId));
         });
         event.setMemberList(users);
+
+        event.getMemberList().forEach(user -> {
+            Transaction transaction = new Transaction();
+            transaction.setDebtor(event.getCreator());
+            transaction.setIndebted(user);
+            transaction.setValue(event.getPrice() / (event.getMemberList().size()+1));
+            transaction.setEvent(event);
+            transactionRepository.save(transaction);
+        });
         event.getMemberList().add(event.getCreator());
         eventRepository.save(event);
         return eventDTO;
@@ -83,6 +104,8 @@ public class EventService {
         List<Event> events = new ArrayList<>();
         ids.forEach(id -> events.add(eventRepository.findEventById(id)));
         return events;
-
+    }
+    public Event getEventByOwnerId(Integer ownerId) {
+        return eventRepository.findEventByCreatorId(ownerId);
     }
 }
