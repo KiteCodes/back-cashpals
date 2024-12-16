@@ -28,9 +28,9 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createTransactions(@RequestBody TransactionDTO transactionDTO){
+    public ResponseEntity<TransactionDTO> createTransactions(@RequestBody TransactionDTO transactionDTO){
         transactionService.createTransaction(transactionDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(transactionDTO,HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/debtor/{id}")
@@ -50,5 +50,9 @@ public class TransactionController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable Integer id, @RequestBody TransactionDTO transactionDTO) {
         return new ResponseEntity<>(transactionService.updateTransaction(id, transactionDTO),HttpStatus.OK);
+    }
+    @GetMapping(path = "/event/{id}")
+    public ResponseEntity<List<TransactionDTO>> getTransactionByEventId(@PathVariable Integer id) {
+        return new ResponseEntity<>(transactionService.getTransactionByEventId(id),HttpStatus.OK);
     }
 }

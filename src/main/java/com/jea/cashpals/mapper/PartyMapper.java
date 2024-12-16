@@ -2,6 +2,7 @@ package com.jea.cashpals.mapper;
 
 
 import com.jea.cashpals.dto.PartyDTO;
+import com.jea.cashpals.entitiy.Event;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
 import org.mapstruct.Mapper;
@@ -17,11 +18,12 @@ public interface PartyMapper {
     @Mapping(source = "owner", target = "owner")
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "users", target = "userList")
-    Party fromPartyDTO(PartyDTO source, User owner, List<User> users);
-
+    @Mapping(source = "events", target = "eventList")
+    Party fromPartyDTO(PartyDTO source, User owner, List<User> users, List<Event> events);
     @Mapping(source = "ownerId", target = "ownerId")
     @Mapping(source = "usersIds", target = "usersIds")
-    PartyDTO fromParty(Party source, Integer ownerId, List<Integer> usersIds);
+    @Mapping(source = "eventsIds", target = "eventsIds")
+    PartyDTO fromParty(Party source, Integer ownerId, List<Integer> usersIds, List<Integer> eventsIds);
 
 
 }
