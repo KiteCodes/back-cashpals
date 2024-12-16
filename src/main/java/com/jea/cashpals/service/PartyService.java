@@ -1,6 +1,7 @@
 package com.jea.cashpals.service;
 
 import com.jea.cashpals.dto.PartyDTO;
+import com.jea.cashpals.dto.SimpleUserDTO;
 import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.Event;
 import com.jea.cashpals.entitiy.Party;
@@ -73,7 +74,7 @@ public class PartyService {
         return partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList(), party.getEventList().stream().map(Event::getId).toList());
     }
 
-    public List<UserDTO> addPartyMembers(List<Integer> usersIds, Integer partyId) {
+    public List<SimpleUserDTO> addPartyMembers(List<Integer> usersIds, Integer partyId) {
         Party party = partyRepository.findPartyById(partyId);
         if (party == null) {
             throw new IllegalArgumentException("Party not found for ID: " + partyId);
@@ -91,9 +92,18 @@ public class PartyService {
 
         partyRepository.save(party);
 
-        return users.stream()
-                .map(userMapper::fromUser)
-                .toList();
+        List<SimpleUserDTO> simpleUserDTOS = new ArrayList<>();
+        for (User user : users) {
+            SimpleUserDTO simpleUserDTO = new SimpleUserDTO();
+            simpleUserDTO.setId(user.getId());
+            simpleUserDTO.setUsername(user.getUsername());
+            simpleUserDTO.setFirstName(user.getFirstName());
+            simpleUserDTO.setLastName(user.getLastName());
+            simpleUserDTO.setEmail(user.getEmail());
+            simpleUserDTOS.add(simpleUserDTO);
+        }
+        return simpleUserDTOS;
+
     }
     public List<PartyDTO> getPartiesByUserId(Integer userId){
         User user = userRepository.findUserById(userId);
