@@ -1,6 +1,7 @@
 package com.jea.cashpals.service;
 
 import com.jea.cashpals.dto.TransactionDTO;
+import com.jea.cashpals.entitiy.Event;
 import com.jea.cashpals.entitiy.Transaction;
 import com.jea.cashpals.entitiy.User;
 import com.jea.cashpals.mapper.TransactionMapper;
@@ -28,7 +29,7 @@ public class TransactionService {
     @Autowired
     TransactionMapper transactionsMapper;
 
-    public List<Transaction> createTransaction(TransactionDTO transactionDTO) {
+    public List<TransactionDTO> createTransaction(TransactionDTO transactionDTO) {
         List<Transaction> createdTransactions = new ArrayList<>();
 
         for (Integer indebtedId : transactionDTO.getIndebtedId()) {
@@ -41,7 +42,11 @@ public class TransactionService {
             transactionRepository.save(newTransaction);
             createdTransactions.add(newTransaction);
         }
-        return createdTransactions;
+            List<TransactionDTO> transactionsDTO = new ArrayList<>();
+            for(Transaction transaction : createdTransactions) {
+                transactionsDTO.add(transactionsMapper.fromTransaction(transaction));
+            }
+        return transactionsDTO;
     }
     public void deleteTransaction(Integer id) {
         Transaction transaction = transactionRepository.findTransactionById(id);
@@ -71,5 +76,9 @@ public class TransactionService {
     public List<TransactionDTO> getTransactionByIndebtedId(Integer id) {
         User user = userRepository.findUserById(id);
         return user.getIndebtedTransactions().stream().map(transactionsMapper::fromTransaction).toList();
+    }
+    public List<TransactionDTO> getTransactionByEventId(Integer id) {
+        List<Transaction> transactions = transactionRepository.findTransactionByEventId(id);
+        return transactions.stream().map(transactionsMapper::fromTransaction).toList();
     }
 }
