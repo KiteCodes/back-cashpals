@@ -28,7 +28,7 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping
-    public List<UserDTO> getUserList(){
+    public List<SimpleUserDTO> getUserList(){
         return userService.getAllUsers();
     }
     @GetMapping(path = "/{id}")

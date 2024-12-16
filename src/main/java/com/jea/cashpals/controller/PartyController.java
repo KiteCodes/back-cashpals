@@ -2,6 +2,7 @@ package com.jea.cashpals.controller;
 
 import com.jea.cashpals.dto.PartyDTO;
 
+import com.jea.cashpals.dto.SimpleUserDTO;
 import com.jea.cashpals.dto.UserDTO;
 import com.jea.cashpals.entitiy.Party;
 import com.jea.cashpals.entitiy.User;
@@ -44,8 +45,8 @@ public class PartyController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping(path = "/{partyId}/addUsers")
-    public ResponseEntity<List<UserDTO>> addPartyUsers(@RequestBody PartyDTO partyDTO, @PathVariable Integer partyId) {
-        return new ResponseEntity<>(partyService.addPartyMembers(partyDTO.getUsersIds(), partyId),HttpStatus.OK);
+    public ResponseEntity<List<SimpleUserDTO>> addPartyUsers(@RequestBody List<Integer> usersIds, @PathVariable Integer partyId) {
+        return new ResponseEntity<>(partyService.addPartyMembers(usersIds, partyId),HttpStatus.OK);
     }
     @GetMapping(path = "/user/{id}")
     public ResponseEntity<List<PartyDTO>> getPartiesByUserId(@PathVariable Integer id) {
