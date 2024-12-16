@@ -61,10 +61,10 @@ public class UserController {
         User user = userRepository.findUserById(id);
         return userService.getContactList(user.getContactList());
     }
+
     @GetMapping(path = "/party/{id}")
     public List<SimpleUserDTO> getUsersByPartyId(@PathVariable Integer id){
         return userService.getUsersByPartyId(id);
-
     }
 
 }

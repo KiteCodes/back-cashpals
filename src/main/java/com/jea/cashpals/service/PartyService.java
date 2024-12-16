@@ -60,10 +60,10 @@ public class PartyService {
         List<PartyDTO> partyDTOList = new ArrayList<>();
         for (Party party : parties) {
             partyDTOList.add(partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList()));
-
         }
         return partyDTOList;
     }
+
     public PartyDTO getPartyById(Integer id) {
         Party party = partyRepository.findPartyById(id);
         return partyMapper.fromParty(party, party.getOwner().getId(), party.getUserList().stream().map(User::getId).toList());
@@ -91,6 +91,7 @@ public class PartyService {
                 .map(userMapper::fromUser)
                 .toList();
     }
+
     public List<PartyDTO> getPartiesByUserId(Integer userId){
         User user = userRepository.findUserById(userId);
         List <Party> parties = new ArrayList<>();
