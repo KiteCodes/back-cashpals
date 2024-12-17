@@ -39,18 +39,15 @@ public class PartyController {
     public ResponseEntity<PartyDTO> updateParty(@PathVariable Integer id, @RequestBody PartyDTO partyDTO) {
         return new ResponseEntity<>(partyService.updateParty(id, partyDTO),HttpStatus.OK);
     }
-
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteParty(@PathVariable Integer id) {
         partyService.deleteParty(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
     @PutMapping(path = "/{partyId}/addUsers")
     public ResponseEntity<List<SimpleUserDTO>> addPartyUsers(@RequestBody List<Integer> usersIds, @PathVariable Integer partyId) {
         return new ResponseEntity<>(partyService.addPartyMembers(usersIds, partyId),HttpStatus.OK);
     }
-
     @GetMapping(path = "/user/{id}")
     public ResponseEntity<List<PartyDTO>> getPartiesByUserId(@PathVariable Integer id) {
         return new ResponseEntity<>(partyService.getPartiesByUserId(id),HttpStatus.OK);
