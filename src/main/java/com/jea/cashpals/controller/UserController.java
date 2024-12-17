@@ -31,6 +31,7 @@ public class UserController {
     public List<SimpleUserDTO> getUserList(){
         return userService.getAllUsers();
     }
+
     @GetMapping(path = "/{id}")
     public UserDTO getUserById(@PathVariable Integer id){
         return userService.findUserById(id);
