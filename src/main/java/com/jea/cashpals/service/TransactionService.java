@@ -56,7 +56,6 @@ public class TransactionService {
             }
         return transactionsDTO;
     }
-
     public void deleteTransaction(Integer id) {
         Transaction transaction = transactionRepository.findTransactionById(id);
         transactionRepository.delete(transaction);
@@ -78,7 +77,6 @@ public class TransactionService {
                 transaction.getEvent().getId())));
         return transactionsDTOS;
     }
-
     public TransactionDTO getTransactionById(Integer id) {
         Transaction transaction = transactionRepository.findTransactionById(id);
         return transactionsMapper.fromTransaction(transaction,
@@ -86,7 +84,6 @@ public class TransactionService {
                 Collections.singletonList(transaction.getIndebted().getId()),
                 transaction.getEvent().getId());
     }
-
     public List<TransactionDTO> getTransactionByDebtorId(Integer id) {
         User user = userRepository.findUserById(id);
         return user.getDebtorTransactions().stream()
