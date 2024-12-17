@@ -100,7 +100,7 @@ public class TransactionService {
         List<TransactionDTO> transactionsDTO = new ArrayList<>();
 
         transactions.forEach(transaction -> transactionsDTO.add(transactionsMapper.fromTransaction(transaction,
-                transaction.getIndebted().getId(),
+                transaction.getDebtor().getId(),
                 Collections.singletonList(transaction.getIndebted().getId()),
                 transaction.getEvent().getId())));
 
