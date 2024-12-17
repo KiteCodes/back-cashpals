@@ -92,21 +92,22 @@ public class UserService {
         });
 
         userList.removeAll(userContactList);
+        userList.remove(user);
         userContactList.addAll(userList);
 
         return userContactList;
     }
 
-    public List<UserDTO> getContactList(List<User> contactList) {
-        List<UserDTO> contactDTOList = new ArrayList<>();
+    public List<SimpleUserDTO> getContactList(List<User> contactList) {
+        List<SimpleUserDTO> contactDTOList = new ArrayList<>();
         contactList.forEach(contact -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(contact.getUsername());
-            userDTO.setFirstName(contact.getFirstName());
-            userDTO.setLastName(contact.getLastName());
-            userDTO.setEmail(contact.getEmail());
-            userDTO.setPhone(contact.getPhone());
-            contactDTOList.add(userDTO);
+            SimpleUserDTO SimpleuserDTO = new SimpleUserDTO();
+            SimpleuserDTO.setId(contact.getId());
+            SimpleuserDTO.setUsername(contact.getUsername());
+            SimpleuserDTO.setFirstName(contact.getFirstName());
+            SimpleuserDTO.setLastName(contact.getLastName());
+            SimpleuserDTO.setEmail(contact.getEmail());
+            contactDTOList.add(SimpleuserDTO);
         });
         return contactDTOList;
     }

@@ -104,8 +104,6 @@ public class EventService {
         List<Event> events = new ArrayList<>();
         ids.forEach(id -> events.add(eventRepository.findEventById(id)));
         return events;
-    }
-    public Event getEventByOwnerId(Integer ownerId) {
-        return eventRepository.findEventByCreatorId(ownerId);
+
     }
 }
