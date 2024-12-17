@@ -57,8 +57,8 @@ public class UserController {
         userRepository.save(user);
     }
 
-    @GetMapping(path = "/contacts/{id}")
-    public List<SimpleUserDTO> getContacts(@PathVariable Integer id){
+    @GetMapping(path = "/contacts")
+    public List<UserDTO> getContacts(@RequestParam("id") Integer id){
         User user = userRepository.findUserById(id);
         return userService.getContactList(user.getContactList());
     }

@@ -9,5 +9,4 @@ public interface EventRepository extends JpaRepository<Event,Integer> {
     Event findEventById(Integer id);
     List<Event> findEventByPartyId(Integer id);
 
-    Event findEventByCreatorId(Integer ownerId);
 }
