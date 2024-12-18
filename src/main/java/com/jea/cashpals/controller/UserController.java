@@ -47,7 +47,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping(path = "/contacts")
+    @PutMapping(path = "/contacts")
     public void saveContact(@RequestBody ContactDTO contactDTO){
         User user = userRepository.findUserById(contactDTO.getId());
         List<Integer> ids = contactDTO.getContactIDs();
