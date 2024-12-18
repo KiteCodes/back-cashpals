@@ -93,19 +93,19 @@ public class TransactionService {
                         transaction.getEvent().getId()))
                 .toList();
     }
-
     public List<TransactionDTO> getTransactionByIndebtedId(Integer id) {
         User user = userRepository.findUserById(id);
         List<Transaction> transactions = user.getIndebtedTransactions();
         List<TransactionDTO> transactionsDTO = new ArrayList<>();
 
         transactions.forEach(transaction -> transactionsDTO.add(transactionsMapper.fromTransaction(transaction,
-                transaction.getIndebted().getId(),
+                transaction.getDebtor().getId(),
                 Collections.singletonList(transaction.getIndebted().getId()),
                 transaction.getEvent().getId())));
 
         return transactionsDTO;
     }
+
     public List<TransactionDTO> getTransactionByEventId(Integer id) {
         List<Transaction> transactions = transactionRepository.findTransactionByEventId(id);
         return transactions.stream()
